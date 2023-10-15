@@ -2,6 +2,13 @@
 a very shoddy simulator for a mechanum wheel drive train.
 
 ## instructions
+
+### Dependancies
+- Python i used 12
+- pygames latest version
+
+
+### Usage
 to use copy everything in src and put your code in between the lines saying update game state.
 
 code will look like below
