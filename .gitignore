@@ -1,0 +1,20 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore the virtual environment folder
+venv/
+
+# Ignore the build folder
+build/
+
+# Ignore the dist folder
+dist/
+
+# Ignore the egg-info folder
+*.egg-info/
+
+# Ignore any local configuration files
+*.ini
+*.log
+# Ignore Mac system files
+.DS_Store
