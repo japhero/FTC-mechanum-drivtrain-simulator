@@ -5,22 +5,28 @@ from MechanumWheel import MechanumWheel
 
 class Robot(rotSquare):
     
-    def __init__(self, wheelWidth,wheelHeight,  *args, **kwargs):
+    def __init__(self, wheelWidth, wheelHeight, *args, **kwargs):
         super().__init__( *args,**kwargs)
         
         self.totalForce = pygame.Vector2(0,0)
+        self.wheelRadius = wheelHeight/2
+
+        self.wheelRadius = wheelHeight/4
+
         
         # grabs the cords based off the points passed into the super class/rotSquare or the constructor for the mechanum square
         self.leftFrontWheelTransform =  (self.points[0][0],self.points[0][1])
         self.rightFrontWheelTransform = (self.points[1][0],self.points[1][1])
         self.leftBackWheelTransform =   (self.points[2][0],self.points[2][1])
         self.rightBackWheelTransform =  (self.points[3][0],self.points[3][1]) 
-        
+
+
+
         #passes the color and the transform to the mechanum wheel class with the angle of its vector and the power of the wheel
-        self.leftFrontWheel = MechanumWheel(45,0,wheelWidth,wheelHeight, self.leftFrontWheelTransform, color = (0,0,50),rotation = 0)
-        self.rightFrontWheel = MechanumWheel(135,0,wheelWidth,wheelHeight, self.rightFrontWheelTransform, color = (0,0,100),rotation = 0)
-        self.leftBackWheel = MechanumWheel(135,0,wheelWidth,wheelHeight, self.leftBackWheelTransform, color = (0,0,150),rotation = 0)
-        self.rightBackWheel = MechanumWheel(45,0,wheelWidth,wheelHeight, self.rightBackWheelTransform, color = (0,0,200),rotation = 0)
+        self.leftFrontWheel = MechanumWheel(45, 0, wheelWidth, wheelHeight, self.leftFrontWheelTransform, color = (0, 0, 0), rotation = 0)
+        self.rightFrontWheel = MechanumWheel(135, 0, wheelWidth, wheelHeight, self.rightFrontWheelTransform, color = (0, 0, 0), rotation = 0)
+        self.leftBackWheel = MechanumWheel(135, 0, wheelWidth, wheelHeight, self.leftBackWheelTransform, color = (0, 0, 0), rotation = 0)
+        self.rightBackWheel = MechanumWheel(45, 0, wheelWidth, wheelHeight, self.rightBackWheelTransform, color = (0, 0, 0), rotation = 0)
         
         self.wheelList = [self.leftFrontWheel,self.leftBackWheel,self.rightBackWheel,self.rightFrontWheel]
         
@@ -41,10 +47,6 @@ class Robot(rotSquare):
             
     
     def setPower(self,wheelDict ):
-        
-        
-         
-        
         for wheelName,power in wheelDict.items():
             match wheelName:
                 case "leftFrontWheel" | 0 :
@@ -55,18 +57,21 @@ class Robot(rotSquare):
                     self.leftBackWheel.changePower(power)
                 case "rightBackWheel" | 2 :
                     self.rightBackWheel.changePower(power)
-        
+
                 
             
     def getTotalForce(self):
         self.totalForce = pygame.Vector2(0,0)
         for wheel in self.wheelList:
             self.totalForce += wheel.getForceVector()
-            
         return self.totalForce
+
+    def getAngularVelocity(self):
+        return (-self.leftFrontWheel.getPower() +self.rightFrontWheel.getPower() - self.leftBackWheel.getPower() + self.rightBackWheel.getPower()) * ( self.wheelRadius/4)
     
     def moveOnForce(self) -> None :
         vectorPos = (round(self.getTotalForce().y,2),round(self.getTotalForce().x,2))
-        print(vectorPos,math.atan2(vectorPos[0],vectorPos[1]))
-        self.moveAll(vectorPos,0)
+        w_z = self.getAngularVelocity()
+        print(vectorPos,w_z)
+        self.moveAll(vectorPos,w_z)
         
