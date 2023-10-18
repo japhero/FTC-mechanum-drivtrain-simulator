@@ -75,3 +75,14 @@ class Robot(rotSquare):
         print(vectorPos,w_z)
         self.moveAll(vectorPos,w_z)
         
+
+    def drawOnScreen(self,screen):
+        white = (255,255,255)
+        # draws the robot
+        screen.fill(white)
+        pygame.draw.polygon(screen, self.getColor(), self.getPoints())
+
+        # draws the wheels
+        for wheel in self.getWheelList():
+            pygame.draw.polygon(screen, wheel.getColor(), wheel.getPoints())
+        pygame.display.update()

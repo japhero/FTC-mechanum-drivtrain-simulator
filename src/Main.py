@@ -1,12 +1,7 @@
-import time
 import pygame
-import math
-import MechanumWheel
-from RotSquare import rotSquare
 from RobotBody import Robot
 
 pygame.init()
-
 screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -23,10 +18,10 @@ while True:
             pygame.quit()
 
     # Update game state
-    powerDict = {"leftBackWheel": 1,
-                 "rightBackWheel": -1,
-                 "rightFrontWheel": -1,
-                 "leftFrontWheel": 1,
+    powerDict = {"leftBackWheel":   1,
+                 "rightBackWheel":  0,
+                 "rightFrontWheel": 0,
+                 "leftFrontWheel":  0,
                  }
 
     Robot.setPower(wheelDict=powerDict)
@@ -37,9 +32,6 @@ while True:
     Robot.moveOnForce()
 
     # Draw to the screen
+    Robot.drawOnScreen(screen)
 
-    screen.fill((255, 255, 255))
-    pygame.draw.polygon(screen, Robot.getColor(), Robot.getPoints())
-    for wheel in Robot.getWheelList():
-        pygame.draw.polygon(screen, wheel.getColor(), wheel.getPoints())
-    pygame.display.update()
+

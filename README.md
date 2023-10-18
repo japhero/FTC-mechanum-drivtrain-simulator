@@ -4,8 +4,8 @@ a very shoddy simulator for a mechanum wheel drive train.
 ## instructions
 
 ### Dependancies
-- Python i used 12
-- pygames latest version
+- Python i used 3.12
+- pygame i used 2.5.2
 
 
 ### Usage
@@ -25,15 +25,31 @@ while True:
     # Update game state
     # PUT ALL YOUR CODE UNDER HERE 
 
-
-    powerDict = {"leftBackWheel":1, # a dict of what wheel powers to set.
-                 "rightBackWheel":1,
-                 "rightFrontWheel":1,
-                 "leftFrontWheel":1,
-                 }
     
-    Robot.setPower( wheelDict = powerDict )
-    
-    Robot.moveOnForce()
-    
+    ##    ------------------------------------    ##
+    Robot.moveOnForce() # updates the robot position based on wheel power
+    Robot.drawOnScreen(pygameWindow) # draws the robot on the screen
 ```
+
+# Documentation
+
+## Robot.setPower({"wheelName": power})
+The set power method sets power for whatever the desired wheels. 
+The function takes a dictionary/Hashmap of wheel names and power values.
+```python
+
+wheelDict = {"leftBackWheel":1, # a dict of what wheel powers to set.
+             "rightBackWheel":1,
+             "rightFrontWheel":1,
+             "leftFrontWheel":1,
+             }
+
+Robot.setPower(wheelDict)
+```
+
+## Robot.go((x,y),rotation) 
+The go method moves the robot to a position on the screen. Pass a tuple with the x and y position and the rotation in degrees.
+```python
+Robot.go((100,100),0) # moves the robot to 100,100 and sets the rotation to 0 degrees
+```
+---
