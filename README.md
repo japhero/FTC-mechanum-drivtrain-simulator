@@ -48,7 +48,7 @@ Robot.setPower(wheelDict)
 ```
 
 ## Robot.go((x,y),rotation) 
-The go method moves the robot to a position on the screen. Pass a tuple with the x and y position and the rotation in degrees.
+The go method moves the robot to a position on the screen. Pass a tuple with the x position, y position and the rotation in degrees. It goes to the position it doesnt move 
 ```python
 Robot.go((100,100),0) # moves the robot to 100,100 and sets the rotation to 0 degrees
 ```
